@@ -13,11 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import lombok.Data;
 
@@ -55,12 +51,12 @@ public class Usuario {
     @NotNull
     @NotBlank
     @Column(name = "estado")
-    @Pattern(regexp = "[AI]", message = "El campo estado solo puede tener los valores: A, I, null")
-    @Size(max = 1, message = "El campo estado debe tener un máximo de 1 caracter") 
+    @Pattern(regexp = "[AI]", message = "{app.fiel.estado.error}")
+    @Size(max = 1, message = "1 {app.fiel.cantidadCaracteres.error}")
     private String estado;
 
     @NotNull
-    @NotBlank
+    @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuario_rol",

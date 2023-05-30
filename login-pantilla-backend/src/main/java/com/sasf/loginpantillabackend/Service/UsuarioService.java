@@ -1,6 +1,7 @@
 package com.sasf.loginpantillabackend.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,31 +12,32 @@ import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuario;
 
 @Service
 public class UsuarioService {
-    
+
     @Autowired
     IUsuario iUsuario;
+    private Integer id;
 
-    public List<Usuario> getAllUsuarios(){
+    public List<Usuario> getAllUsuarios() {
         return iUsuario.findAll();
     }
 
-    public Usuario createUsuario(Usuario usuario){
+    public Usuario createUsuario(Usuario usuario) {
         return iUsuario.save(usuario);
     }
 
-    public Usuario updateUsuario(Usuario usuario, Integer id){
+    public Usuario updateUsuario(Usuario usuario, Integer id) {
         Optional<Usuario> usuarioExtraido = iUsuario.findById(id);
 
-        Usuario usuarioActual = usuarioExtraido.get();
-
-        usuarioActual.setNombre(usuario.getNombre());
-        usuarioActual.setNombre(usuario.getApellido());
-        usuarioActual.setEmail(usuario.getEmail());
-        usuarioActual.setPassword(usuario.getPassword());
-        usuarioActual.setEstado(usuario.getEstado());
-        usuarioActual.setRoles(usuario.getRoles());
-
-        return iUsuario.save(usuario);
+        if (usuarioExtraido.isPresent()) {
+            return iUsuario.save(usuario);
+        } else {
+            throw new NoSuchElementException("No se encontró el usuario con el ID especificado: " + id);
+        }
     }
+
+    public void deleteUsuario(Integer id) {
+        iUsuario.deleteUsuarioById(id);
+    }
+
 
 }

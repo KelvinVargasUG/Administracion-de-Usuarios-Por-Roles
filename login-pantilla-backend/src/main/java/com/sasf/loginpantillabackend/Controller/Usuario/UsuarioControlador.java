@@ -29,7 +29,7 @@ public class UsuarioControlador {
         return ResponseEntity.ok(usuarioService.createUsuario(usuario));
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Usuario> updateUsuario(@Valid @RequestBody Usuario usuario, @PathVariable Integer id){
         return ResponseEntity.ok(usuarioService.updateUsuario(usuario,id));
     }
