@@ -13,6 +13,7 @@ import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 import com.sasf.loginpantillabackend.Service.UsuarioService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/usuario")
 public class UsuarioControlador {
 

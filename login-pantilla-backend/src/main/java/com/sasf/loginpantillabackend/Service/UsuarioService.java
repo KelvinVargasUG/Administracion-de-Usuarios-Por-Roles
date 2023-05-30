@@ -20,6 +20,12 @@ public class UsuarioService {
     @Autowired
     IUsuario iUsuario;
 
+    //private BCryptPasswordEncoder passwordEncoder;
+
+   // public UsuarioService(BCryptPasswordEncoder passwordEncoder) {
+        //this.passwordEncoder = passwordEncoder;
+    //}
+
     public List<Usuario> getAllUsuarios() {
         List<Usuario> usuario = iUsuario.getAllUsuarios();
         if (usuario != null) {
@@ -27,10 +33,11 @@ public class UsuarioService {
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay datos");
         }
-
     }
 
     public Usuario createUsuario(Usuario usuario) {
+       // String contraseñaCodificada = passwordEncoder.encode(usuario.getPassword());
+      //  usuario.setPassword(contraseñaCodificada);
         return iUsuario.save(usuario);
     }
 
