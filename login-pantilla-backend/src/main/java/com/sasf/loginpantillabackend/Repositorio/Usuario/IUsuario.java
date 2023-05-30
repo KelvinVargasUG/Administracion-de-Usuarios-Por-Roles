@@ -7,5 +7,8 @@ import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 
 @Repository
 public interface IUsuario extends JpaRepository<Usuario,Integer> {
+
+
+    public void deleteUsuarioById(Integer id);
     
 }

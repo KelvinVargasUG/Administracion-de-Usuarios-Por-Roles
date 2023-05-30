@@ -1,6 +1,7 @@
 package com.sasf.loginpantillabackend.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,20 @@ public class UsuarioService {
     public Usuario createUsuario(Usuario usuario){
         return iUsuario.save(usuario);
     }
+
+    public Usuario updateUsuario(Usuario usuario, Integer id){
+        Optional<Usuario> usuarioExtraido = iUsuario.findById(id);
+
+        Usuario usuarioActual = usuarioExtraido.get();
+
+        usuarioActual.setNombre(usuario.getNombre());
+        usuarioActual.setNombre(usuario.getApellido());
+        usuarioActual.setEmail(usuario.getEmail());
+        usuarioActual.setPassword(usuario.getPassword());
+        usuarioActual.setEstado(usuario.getEstado());
+        usuarioActual.setRoles(usuario.getRoles());
+
+        return iUsuario.save(usuario);
+    }
+
 }

@@ -7,11 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 import com.sasf.loginpantillabackend.Service.UsuarioService;
@@ -33,4 +29,8 @@ public class UsuarioControlador {
         return ResponseEntity.ok(usuarioService.createUsuario(usuario));
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<Usuario> updateUsuario(@Valid @RequestBody Usuario usuario, @PathVariable Integer id){
+        return ResponseEntity.ok(usuarioService.updateUsuario(usuario,id));
+    }
 }

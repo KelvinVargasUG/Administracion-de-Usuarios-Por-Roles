@@ -59,7 +59,8 @@ public class Usuario {
     @Size(max = 1, message = "El campo estado debe tener un máximo de 1 caracter") 
     private String estado;
 
-
+    @NotNull
+    @NotBlank
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "usuario_rol",
