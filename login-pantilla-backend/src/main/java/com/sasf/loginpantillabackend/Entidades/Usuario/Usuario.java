@@ -21,7 +21,7 @@ import lombok.Data;
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
@@ -48,8 +48,6 @@ public class Usuario {
     @Column(name = "password")
     private String password;
 
-    @NotNull
-    @NotBlank
     @Column(name = "estado")
     @Pattern(regexp = "[AI]", message = "{app.fiel.estado.error}")
     @Size(max = 1, message = "1 {app.fiel.cantidadCaracteres.error}")
@@ -58,11 +56,7 @@ public class Usuario {
     @NotNull
     @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "usuario_rol",
-        joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"),
-        inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
-    )
+    @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id_rol"))
     private List<Rol> roles;
-    
+
 }

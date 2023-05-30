@@ -28,5 +28,5 @@ public class Rol {
     @NotBlank
     @Column(name = "nombre")
     private String nombre;
-    
+
 }
