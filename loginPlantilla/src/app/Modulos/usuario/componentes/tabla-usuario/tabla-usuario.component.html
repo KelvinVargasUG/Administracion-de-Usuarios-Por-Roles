@@ -1,0 +1,158 @@
+<h2>Lista de Usuarios</h2>
+<button
+  type="button"
+  class="btn btn-outline-success"
+  data-bs-toggle="modal"
+  data-bs-target="#fromUsuario"
+>
+  Crear Usuario
+</button>
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Estado</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
+      <td>{{ usuario.email }}</td>
+      <td>{{ usuario.estado }}</td>
+      <td>{{ usuario.roles[0].nombre }}</td>
+      <td>
+        <button (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)">
+          Eliminar
+        </button>
+        <button
+          [routerLink]="['edit', usuario.idUsuario]"
+        >
+          Editar
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<form
+  [formGroup]="formUsuario"
+  (ngSubmit)="saveUsuario()"
+  class="needs-validation"
+>
+  <div
+    class="modal fade"
+    id="fromUsuario"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Crear Usuario</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input
+                required
+                formControlName="nombre"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese Nombre"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Apellido</label>
+              <input
+                formControlName="apellido"
+                type="text"
+                class="form-control"
+                placeholder="Ingrese Apellido"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input
+                formControlName="email"
+                type="email"
+                class="form-control"
+                aria-describedby="emailHelp"
+                placeholder="Ingrese Email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>contraseña</label>
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="inputState">Estado</label>
+              <select
+                formControlName="estado"
+                id="inputState"
+                class="form-control"
+              >
+              <option value="">Seleccione Estado</option>
+                <option value="A" selected>Activo</option>
+                <option value="I">Inactivo</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputState">Rol</label>
+              <select
+                formControlName="rol"
+                id="inputState"
+                class="form-control"
+                required
+              >
+              <option value="">Seleccione rol</option>
+                <option value="1" selected>User</option>
+                <option value="2">Admin</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <button
+            type="submit"
+            data-bs-dismiss="modal"
+            [disabled]="formUsuario.invalid"
+            class="btn btn-primary"
+          >
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

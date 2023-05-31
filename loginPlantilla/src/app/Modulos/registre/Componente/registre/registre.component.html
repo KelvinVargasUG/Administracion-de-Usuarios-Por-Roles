@@ -19,11 +19,7 @@
         />
       </svg>
     </div>
-    <form
-      [formGroup]="formUsuario"
-      (ngSubmit)="saveUsuario()"
-      class="log-in"
-    >
+    <form [formGroup]="formUsuario" (ngSubmit)="saveUsuario()" class="log-in">
       <h4>Registrar <span>Usuario</span></h4>
       <p>Por Favor Llenar todos los campos que se le pide</p>
 
@@ -44,13 +40,13 @@
         <input formControlName="apellido" placeholder="Apellido" type="text" />
         <label for="Apellido">Apellido:</label>
         <div
-        *ngIf="
-          formUsuario.get('apellido')?.hasError('required') &&
-          formUsuario.get('apellido')?.dirty
-        "
-      >
-        <p style="color: red">Campo requerido</p>
-      </div>
+          *ngIf="
+            formUsuario.get('apellido')?.hasError('required') &&
+            formUsuario.get('apellido')?.dirty
+          "
+        >
+          <p style="color: red">Campo requerido</p>
+        </div>
       </div>
 
       <div class="floating-label">
@@ -58,12 +54,12 @@
         <label for="email">Email:</label>
         <div
         *ngIf="
-          formUsuario.get('email')?.hasError('required') && 
-          formUsuario.get('email')?.dirty
+          formUsuario.get('email')?.invalid &&
+          formUsuario.get('email')?.dirty 
         "
-      >
-        <p style="color: red">Campo requerido</p>
-      </div>
+        >
+        <p style="color: red">Ingrese email Valido</p>
+        </div>
       </div>
 
       <div class="floating-label">
@@ -73,19 +69,18 @@
           type="password"
         />
         <label for="password">Password:</label>
-        
+
+     
         <div
-        *ngIf="
-          formUsuario.get('password')?.hasError('required') && 
-          formUsuario.get('password')?.dirty
-        "
-      >
-        <p style="color: red">Campo requerido</p>
-      </div>
-        
+          *ngIf="
+            formUsuario.get('password')?.invalid &&
+            formUsuario.get('password')?.dirty
+          "
+        >
+          <p style="color: red">Ingrese una contraseña mayo a 8 caracteres</p>
+        </div>
       </div>
 
-      
       <button type="submit" [disabled]="formUsuario.invalid">
         Registrarse
       </button>

@@ -11,9 +11,11 @@ import { UsuarioService } from 'src/app/Service/Usuario/usuario.service';
 export class RegistreComponent {
   formUsuario!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,
-     private router: Router,
-     private usuarioService: UsuarioService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private usuarioService: UsuarioService
+  ) {
     this.buildForm();
   }
 
@@ -22,14 +24,10 @@ export class RegistreComponent {
   }
 
   saveUsuario() {
-    this.usuarioService.getAllProducts()
     if (this.formUsuario.valid) {
       const usuario = this.formUsuario.value;
-      console.log(this.formUsuario.value)
-      console.log(this.usuarioService.getAllProducts())
-      this.usuarioService.createUsuario(usuario)
-      .subscribe();
-      
+      this.usuarioService.registreUsuario(usuario).subscribe();
+      this.irLogin()
     }
   }
 
@@ -38,7 +36,7 @@ export class RegistreComponent {
       nombre: ['', [Validators.required]],
       apellido: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 }

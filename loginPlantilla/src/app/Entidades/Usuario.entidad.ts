@@ -1,9 +1,11 @@
+import { Rol } from "./Rol.entidad";
+
 export interface Usuario {
-  id: number;
+  idUsuario?: number;
   nombre: string;
   apellido: string;
   estado: string;
   email: string;
   password: string;
-  roles: [{ idRol: number; nombre: string }];
+  roles: Rol[];
 }
