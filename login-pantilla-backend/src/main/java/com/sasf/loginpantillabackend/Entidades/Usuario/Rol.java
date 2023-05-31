@@ -24,8 +24,6 @@ public class Rol {
     @Column(name = "id_rol")
     private Integer IdRol;
 
-    @NotNull
-    @NotBlank
     @Column(name = "nombre")
     private String nombre;
 

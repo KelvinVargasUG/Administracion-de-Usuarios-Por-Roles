@@ -2,7 +2,6 @@ package com.sasf.loginpantillabackend.Controller.Usuario;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,8 @@ public class UsuarioControlador {
         return ResponseEntity.ok(usuarioService.updateUsuario(usuario, id));
     }
 
-    @PutMapping("/delete/{id}")
-    public ResponseEntity<String> DeleteUsuario(@PathVariable Integer id) {
+    @PutMapping("/delete")
+    public ResponseEntity<String> DeleteUsuario(@RequestBody Integer id) {
         return ResponseEntity.ok(usuarioService.deleteUsuario(id));
     }
 

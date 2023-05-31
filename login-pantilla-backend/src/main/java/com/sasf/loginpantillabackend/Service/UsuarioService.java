@@ -36,8 +36,6 @@ public class UsuarioService {
     }
 
     public Usuario createUsuario(Usuario usuario) {
-       // String contraseñaCodificada = passwordEncoder.encode(usuario.getPassword());
-      //  usuario.setPassword(contraseñaCodificada);
         return iUsuario.save(usuario);
     }
 
@@ -57,10 +55,11 @@ public class UsuarioService {
 
             return iUsuario.save(dataActualizar);
 
-        } else {
+        }
+        
+         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No se encontró el usuario con el ID especificado: " + id);
-
         }
     }
 
@@ -72,7 +71,7 @@ public class UsuarioService {
             dataActualizar.setEstado(null);
             iUsuario.save(dataActualizar);
 
-            return "Eliminado Exitosamente";
+            throw new ResponseStatusException(HttpStatus.OK, "Eliminado Exitosamente");
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No se encontró el usuario con el ID especificado: " + id);
