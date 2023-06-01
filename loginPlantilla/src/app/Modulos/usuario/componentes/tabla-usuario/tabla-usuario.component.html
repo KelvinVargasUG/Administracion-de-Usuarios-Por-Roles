@@ -9,35 +9,91 @@
 </button>
 <table class="table table-striped">
   <thead class="table-dark">
-  <tr>
-    <th>Nombre</th>
-    <th>Email</th>
-    <th>Estado</th>
-    <th>Rol</th>
-    <th>Acciones</th>
-  </tr>
+    <tr>
+      <th>Id</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Estado</th>
+      <th>Rol</th>
+      <th>Acciones</th>
+    </tr>
   </thead>
 
   <tbody>
-  <tr *ngFor="let usuario of usuarios">
-    <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
-    <td>{{ usuario.email }}</td>
-    <td>{{ usuario.estado }}</td>
-    <td>{{ usuario.roles[0].nombre }}</td>
-    <td>
-      <button (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)">
-        Eliminar
-      </button>
-      <button
-        [routerLink]="['edit', usuario.idUsuario]"
-      >
-        Editar
-      </button>
-    </td>
-  </tr>
+    <tr *ngFor="let usuario of usuarios">
+      <td>{{ usuario.idUsuario }}</td>
+      <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
+      <td>{{ usuario.email }}</td>
+      <td>{{ usuario.estado }}</td>
+      <td>{{ mostrarRolesEnTabla(usuario.roles) }}</td>
+
+      <td>
+        <button
+          class="btn btn-outline-danger"
+          (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)"
+        >
+          Eliminar
+        </button>
+        <button
+          class="btn btn-outline-warning"
+          [routerLink]="['edit', usuario.idUsuario]"
+        >
+          Editar
+        </button>
+        <button
+          class="btn btn-outline-info"
+          data-bs-toggle="modal"
+          data-bs-target="#fromQuitarRol"
+          (click)="getRolesUser(usuario.roles, usuario.idUsuario)"
+        >
+          Quitar Rol
+        </button>
+      </td>
+    </tr>
   </tbody>
 </table>
 
+<!--Modal Quitar Rol-->
+<form class="needs-validation">
+  <div
+    class="modal fade"
+    id="fromQuitarRol"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Quitar Rol</h5>
+        </div>
+
+        <div class="modal-body">
+          <div class="form-row">
+            <div *ngFor="let rol of rolesUsuario">
+              <button
+                type="submit"
+                data-bs-dismiss="modal"
+                class="btn btn-outline-danger"
+                (click)="deleteRolUser(rol.idRol)"
+              >
+                Eliminar {{ rol.nombre }}
+              </button>
+              <br />
+            </div>
+          </div>
+        </div>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!--Modal Crear Usuario-->
 <form
   [formGroup]="formUsuario"
   (ngSubmit)="saveUsuario()"
@@ -117,16 +173,13 @@
 
             <div class="form-group">
               <label>Rol</label>
-              <select
-                formControlName="rol"
-                class="form-control"
-                required
-              >
+              <select formControlName="rol" class="form-control" required>
                 <option value="" selected>Seleccione Rol</option>
-                <option *ngFor="let rol of roles" [value]="rol.idRol">{{rol.nombre}}</option>
+                <option *ngFor="let rol of roles" [value]="rol.idRol">
+                  {{ rol.nombre }}
+                </option>
               </select>
             </div>
-
           </div>
         </div>
         <div class="modal-footer">

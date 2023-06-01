@@ -61,15 +61,10 @@
         <select
           formControlName="rol"
           class="form-control"
-          required
         >
-          <option value="" selected>Seleccione Rol</option>
+          <option value="" selected>Seleccione Rol nuevo</option>
           <option *ngFor="let rol of roles" [value]="rol.idRol">{{rol.nombre}}</option>
         </select>
-      </div>
-
-      <div class="form-group">
-        <button type="button" (click)="agregarRol()">Agregar Rol</button>
       </div>
 
     </div>

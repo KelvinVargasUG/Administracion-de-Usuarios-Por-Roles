@@ -6,6 +6,7 @@ const routes: Routes = [
   {path: 'usuario', loadChildren: ()=>import('./Modulos/usuario/usuario.module').then(m => m.UsuarioModule)},
   {path: 'login', loadChildren: ()=>import('./Modulos/login/login.module').then(m => m.LoginModule)},
   {path: 'registre', loadChildren: ()=>import('./Modulos/registre/registre.module').then(m => m.RegistreModule)},
+  {path: '**', loadChildren: ()=>import('./Modulos/page-no-found/page-no-found.module').then(m => m.PageNoFoundModule)},
 
 ];
 
