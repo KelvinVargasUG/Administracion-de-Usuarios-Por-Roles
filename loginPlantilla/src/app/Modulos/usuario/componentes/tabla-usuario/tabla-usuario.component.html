@@ -9,32 +9,32 @@
 </button>
 <table class="table table-striped">
   <thead class="table-dark">
-    <tr>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Estado</th>
-      <th>Rol</th>
-      <th>Acciones</th>
-    </tr>
+  <tr>
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Estado</th>
+    <th>Rol</th>
+    <th>Acciones</th>
+  </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let usuario of usuarios">
-      <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
-      <td>{{ usuario.email }}</td>
-      <td>{{ usuario.estado }}</td>
-      <td>{{ usuario.roles[0].nombre }}</td>
-      <td>
-        <button (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)">
-          Eliminar
-        </button>
-        <button
-          [routerLink]="['edit', usuario.idUsuario]"
-        >
-          Editar
-        </button>
-      </td>
-    </tr>
+  <tr *ngFor="let usuario of usuarios">
+    <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
+    <td>{{ usuario.email }}</td>
+    <td>{{ usuario.estado }}</td>
+    <td>{{ usuario.roles[0].nombre }}</td>
+    <td>
+      <button (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)">
+        Eliminar
+      </button>
+      <button
+        [routerLink]="['edit', usuario.idUsuario]"
+      >
+        Editar
+      </button>
+    </td>
+  </tr>
   </tbody>
 </table>
 
@@ -107,29 +107,23 @@
             </div>
 
             <div class="form-group">
-              <label for="inputState">Estado</label>
-              <select
-                formControlName="estado"
-                id="inputState"
-                class="form-control"
-              >
-              <option value="">Seleccione Estado</option>
-                <option value="A" selected>Activo</option>
+              <label>Estado</label>
+              <select formControlName="estado" class="form-control">
+                <option value="" selected>Seleccione Estado</option>
+                <option value="A">Activo</option>
                 <option value="I">Inactivo</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="inputState">Rol</label>
+              <label>Rol</label>
               <select
                 formControlName="rol"
-                id="inputState"
                 class="form-control"
                 required
               >
-              <option value="">Seleccione rol</option>
-                <option value="1" selected>User</option>
-                <option value="2">Admin</option>
+                <option value="" selected>Seleccione Rol</option>
+                <option *ngFor="let rol of roles" [value]="rol.idRol">{{rol.nombre}}</option>
               </select>
             </div>
 

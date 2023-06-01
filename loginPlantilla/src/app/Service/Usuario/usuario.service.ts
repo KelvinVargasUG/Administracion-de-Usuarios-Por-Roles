@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/Entidades/Usuario.entidad';
-import { Rol } from 'src/app/Entidades/Rol.entidad';
-import { map } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'

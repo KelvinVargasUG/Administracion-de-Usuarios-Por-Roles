@@ -13,12 +13,12 @@
     ></button>
   </div>
   <div class="modal-body">
-    <div class="form-row">
+    <div>
       <div class="form-group">
         <label>Nombre</label>
         <input
           required
-          
+
           formControlName="nombre"
           type="text"
           class="form-control"
@@ -48,27 +48,30 @@
       </div>
 
       <div class="form-group">
-        <label for="inputState">Estado</label>
-        <select formControlName="estado" id="inputState" class="form-control">
-          <option value="">Seleccione Estado</option>
-          <option value="A" selected>Activo</option>
+        <label>Estado</label>
+        <select formControlName="estado" class="form-control">
+          <option value="" selected>Seleccione Estado</option>
+          <option value="A">Activo</option>
           <option value="I">Inactivo</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="inputState">Rol</label>
+        <label>Rol</label>
         <select
           formControlName="rol"
-          id="inputState"
           class="form-control"
           required
         >
-          <option value="">Seleccione rol</option>
-          <option value="1" selected>User</option>
-          <option value="2">Admin</option>
+          <option value="" selected>Seleccione Rol</option>
+          <option *ngFor="let rol of roles" [value]="rol.idRol">{{rol.nombre}}</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <button type="button" (click)="agregarRol()">Agregar Rol</button>
+      </div>
+
     </div>
   </div>
   <div class="modal-footer">

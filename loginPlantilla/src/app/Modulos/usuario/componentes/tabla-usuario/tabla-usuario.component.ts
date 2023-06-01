@@ -3,6 +3,7 @@ import { UsuarioService } from 'src/app/Service/Usuario/usuario.service';
 import { Usuario } from 'src/app/Entidades/Usuario.entidad';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Rol } from 'src/app/Entidades/Rol.entidad';
+import {RolService} from "../../../../Service/Rol/rol.service";
 
 @Component({
   selector: 'app-tabla-usuario',
@@ -11,10 +12,12 @@ import { Rol } from 'src/app/Entidades/Rol.entidad';
 })
 export class TablaUsuarioComponent implements OnInit {
   usuarios!: Usuario[];
+  roles!: Rol[];
   formUsuario!: FormGroup;
 
   constructor(
     private usuarioService: UsuarioService,
+    private rolService: RolService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
@@ -22,6 +25,16 @@ export class TablaUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUsuarios();
+    this.getAllRol();
+  }
+
+  getAllRol() {
+    this.rolService.getAllRol().subscribe(
+      {
+        next:(data:any) => {this.roles=data; console.log(this.roles)},
+        error: (error) => {console.log(error)}
+      }
+    )
   }
 
   getAllUsuarios() {
