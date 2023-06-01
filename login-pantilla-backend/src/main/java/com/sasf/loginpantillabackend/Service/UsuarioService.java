@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.sasf.loginpantillabackend.Entidades.Usuario.Rol;
 import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuario;
 
@@ -20,6 +21,8 @@ public class UsuarioService {
     @Autowired
     IUsuario iUsuario;
 
+    @Autowired
+    RolService rolService;
     //private BCryptPasswordEncoder passwordEncoder;
 
    // public UsuarioService(BCryptPasswordEncoder passwordEncoder) {
@@ -36,6 +39,9 @@ public class UsuarioService {
     }
 
     public Usuario createUsuario(Usuario usuario) {
+        Optional<Rol> rolRespuesta=rolService.getRolByRol(usuario.getRoles().get(0).getIdRol());
+        Rol rol = rolRespuesta.get();
+        usuario.getRoles().get(0).setNombre(rol.getNombre());
         return iUsuario.save(usuario);
     }
 

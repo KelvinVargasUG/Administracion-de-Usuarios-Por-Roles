@@ -12,17 +12,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "rol")
-public class Rol {
-
+@Table(name = "usuario_rol")
+public class UsuarioRol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_rol")
-    private Integer IdRol;
+    @Column(name = "id_usuario_rol")
+    private Integer idUsuarioRol;
 
-    @Column(name = "nombre")
-    private String nombre;
-
- 
-
+    @Pattern(regexp = "[AI]", message = "{app.fiel.estado.error}")
+    @Column(name = "estado")
+    private String estado;
 }
