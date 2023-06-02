@@ -22,4 +22,10 @@ public class UsuarioRol {
     @Pattern(regexp = "[AI]", message = "{app.fiel.estado.error}")
     @Column(name = "estado")
     private String estado;
+
+    @Column(name = "id_rol")
+    private Integer IdRol;
+
+    @Column(name = "id_usuario")
+    private Integer IdUsuario;
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.sasf.loginpantillabackend.Service.UsuarioRolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,15 @@ public class UsuarioControlador {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    UsuarioRolService usuarioRolService;
+
     @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
         return ResponseEntity.ok(usuarioService.getAllUsuarios());
     }
+
+
 
     @PostMapping
     public ResponseEntity<Usuario> crearUsuario(@Valid @RequestBody Usuario usuario) {

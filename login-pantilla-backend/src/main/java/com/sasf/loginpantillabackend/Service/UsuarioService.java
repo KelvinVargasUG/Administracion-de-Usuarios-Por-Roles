@@ -42,6 +42,8 @@ public class UsuarioService {
         Optional<Rol> rolRespuesta=rolService.getRolByRol(usuario.getRoles().get(0).getIdRol());
         Rol rol = rolRespuesta.get();
         usuario.getRoles().get(0).setNombre(rol.getNombre());
+
+
         return iUsuario.save(usuario);
     }
 

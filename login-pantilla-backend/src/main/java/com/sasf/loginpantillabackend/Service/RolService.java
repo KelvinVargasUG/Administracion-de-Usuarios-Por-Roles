@@ -40,26 +40,4 @@ public class RolService {
         return irol.findById(id);
     }
 
-    public List<Rol> getRolNoAsignado(Integer userId) {
-        String nativeQuery = "SELECT r.* FROM rol r WHERE r.id_rol NOT IN " +
-                "(SELECT ur.id_rol FROM usuario_rol ur WHERE ur.id_usuario = :userId)";
-
-        Query query = entityManager.createNativeQuery(nativeQuery, Rol.class);
-        query.setParameter("userId", userId);
-
-        return query.getResultList();
     }
-
-    public void deleteRol(Integer userId, Integer rolId) {
-        String querySolicitud = "UPDATE usuario_rol SET estado = 'I' WHERE id_usuario = :userId AND id_rol = :rolId";
-    
-        Query query = entityManager.createNativeQuery(querySolicitud);
-        query.setParameter("userId", userId);
-        query.setParameter("rolId", rolId);    
-        query.executeUpdate();
-    }
-
-    
-
-
-}
