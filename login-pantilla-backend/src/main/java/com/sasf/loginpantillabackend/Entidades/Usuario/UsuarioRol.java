@@ -20,7 +20,7 @@ public class UsuarioRol {
     private Integer idUsuarioRol;
 
     @Pattern(regexp = "[AI]", message = "{app.fiel.estado.error}")
-    @Column(name = "estado")
+    @Column(name = "nombre", columnDefinition = "VARCHAR(1) DEFAULT 'A'")
     private String estado;
 
     @Column(name = "id_rol")

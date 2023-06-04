@@ -17,7 +17,7 @@ public interface IUsuarioRol extends JpaRepository<UsuarioRol, Integer> {
     @Query("UPDATE UsuarioRol set estado ='I' where IdUsuario =:idUsuario and IdRol =:idRol")
     public void deleteRolUsuario(Integer idUsuario, Integer idRol);
 
-    @Query("SELECT r from Rol r where r.IdRol not IN (select ur.IdRol from UsuarioRol ur where ur.IdUsuario =:idUsuario)")
+    @Query("SELECT r from Rol r where r.IdRol not IN (select ur.IdRol from UsuarioRol ur where ur.IdUsuario =:idUsuario AND ur.estado = 'A')")
     public List<Rol> getRolNoAsignado(Integer idUsuario);
 
     @Query("SELECT DISTINCT  u from Usuario u JOIN fetch u.roles r JOIN UsuarioRol ur on ur.IdRol = r.IdRol " +

@@ -25,10 +25,8 @@ public class UsuarioControlador {
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
-        return ResponseEntity.ok(usuarioService.getAllUsuarios());
+        return ResponseEntity.ok(usuarioRolService.getAllUsuarios());
     }
-
-
 
     @PostMapping
     public ResponseEntity<Usuario> crearUsuario(@Valid @RequestBody Usuario usuario) {
