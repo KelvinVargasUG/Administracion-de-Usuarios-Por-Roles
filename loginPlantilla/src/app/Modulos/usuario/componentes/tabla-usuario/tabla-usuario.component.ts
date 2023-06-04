@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from 'src/app/Service/Usuario/usuario.service';
-import { Usuario } from 'src/app/Entidades/Usuario.entidad';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Rol } from 'src/app/Entidades/Rol.entidad';
+import {Component, OnInit} from '@angular/core';
+import {UsuarioService} from 'src/app/Service/Usuario/usuario.service';
+import {Usuario} from 'src/app/Entidades/Usuario.entidad';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Rol} from 'src/app/Entidades/Rol.entidad';
 import {RolService} from "../../../../Service/Rol/rol.service";
 
 @Component({
@@ -16,9 +16,10 @@ export class TablaUsuarioComponent implements OnInit {
   rolesUsuario!: Rol[];
   formUsuario!: FormGroup;
 
-  rolSeleccionado:any;
+  rolSeleccionado: any;
 
-  idUsuario!:number;
+  idUsuario!: number;
+
   constructor(
     private usuarioService: UsuarioService,
     private rolService: RolService,
@@ -32,16 +33,31 @@ export class TablaUsuarioComponent implements OnInit {
     this.getAllRol();
   }
 
-  getRolesUser(roles:any[], idUsuario:any){
-    this.rolesUsuario=roles;
+  getRolesUser(roles: any[], idUsuario: any) {
+    this.rolesUsuario = roles;
     this.idUsuario = idUsuario;
   }
 
-  deleteRolUser(idRol:number){
+  deleteRolUser(idRol: number) {
     this.rolService.deletelRol(this.idUsuario, idRol).subscribe(
-    {
-      next:(data)=>console.log(data)
-    }
+      {
+        next: (data: any) => {
+          let usuario = this.usuarios.find((user: any) =>
+            user.idUsuario === this.idUsuario
+          )
+          if (usuario) {
+            usuario.roles = usuario.roles.filter((rol: any) => rol.idRol !== idRol)
+
+            const indexRol = this.rolesUsuario.findIndex(
+              (rol) => rol.idRol !== idRol
+            );
+            if (indexRol !== -1) {
+              this.rolesUsuario.splice(indexRol, 1);
+              alert('Rol Eliminado Correctamente');
+            }
+          }
+        }
+      }
     )
   }
 
@@ -52,8 +68,12 @@ export class TablaUsuarioComponent implements OnInit {
   getAllRol() {
     this.rolService.getAllRol().subscribe(
       {
-        next:(data:any) => {this.roles=data;},
-        error: (error) => {console.log(error)}
+        next: (data: any) => {
+          this.roles = data;
+        },
+        error: (error) => {
+          console.log(error)
+        }
       }
     )
   }
