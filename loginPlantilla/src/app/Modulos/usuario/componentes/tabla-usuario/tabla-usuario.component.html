@@ -74,13 +74,17 @@
           <div class="form-row">
             <div *ngFor="let rol of rolesUsuario">
               <button
-                type="submit"
+              ng-disabled="rolesUsuario.length > 1"
+              type="submit"
                 data-bs-dismiss="modal"
                 class="btn btn-outline-danger"
                 (click)="deleteRolUser(rol.idRol)"
               >
                 Eliminar {{ rol.nombre }}
               </button>
+              <div *ngIf="rolesUsuario.length <= 1">
+                Debes tener al menos un rol.
+              </div>
               <br />
             </div>
           </div>
