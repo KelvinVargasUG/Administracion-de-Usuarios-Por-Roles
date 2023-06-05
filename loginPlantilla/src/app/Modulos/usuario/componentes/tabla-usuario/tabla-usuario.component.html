@@ -8,48 +8,48 @@
   Crear Usuario
 </button>
 <table class="table table-striped">
-  <thead class="table-dark">
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Email</th>
-      <th>Estado</th>
-      <th>Rol</th>
-      <th>Acciones</th>
-    </tr>
+  <thead class="table-info">
+  <tr>
+    <th>Id</th>
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Estado</th>
+    <th>Rol</th>
+    <th>Acciones</th>
+  </tr>
   </thead>
 
   <tbody>
-    <tr *ngFor="let usuario of usuarios">
-      <td>{{ usuario.idUsuario }}</td>
-      <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
-      <td>{{ usuario.email }}</td>
-      <td>{{ usuario.estado }}</td>
-      <td>{{ mostrarRolesEnTabla(usuario.roles) }}</td>
+  <tr *ngFor="let usuario of usuarios">
+    <td>{{ usuario.idUsuario }}</td>
+    <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
+    <td>{{ usuario.email }}</td>
+    <td>{{ usuario.estado }}</td>
+    <td>{{ mostrarRolesEnTabla(usuario.roles) }}</td>
 
-      <td>
-        <button
-          class="btn btn-outline-danger"
-          (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)"
-        >
-          Eliminar
-        </button>
-        <button
-          class="btn btn-outline-warning"
-          [routerLink]="['edit', usuario.idUsuario]"
-        >
-          Editar
-        </button>
-        <button
-          class="btn btn-outline-info"
-          data-bs-toggle="modal"
-          data-bs-target="#fromQuitarRol"
-          (click)="getRolesUser(usuario.roles, usuario.idUsuario)"
-        >
-          Quitar Rol
-        </button>
-      </td>
-    </tr>
+    <td>
+      <button
+        class="btn btn-outline-danger"
+        (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)"
+      >
+        Eliminar
+      </button>
+      <button
+        class="btn btn-outline-warning"
+        [routerLink]="['edit', usuario.idUsuario]"
+      >
+        Editar
+      </button>
+      <button
+        class="btn btn-outline-info"
+        data-bs-toggle="modal"
+        data-bs-target="#fromQuitarRol"
+        (click)="getRolesUser(usuario.roles, usuario.idUsuario)"
+      >
+        Quitar Rol
+      </button>
+    </td>
+  </tr>
   </tbody>
 </table>
 
@@ -67,7 +67,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Quitar Rol</h5>
+          <h5 class="modal-title">Quitar Rol</h5>
         </div>
 
         <div class="modal-body">
@@ -79,14 +79,17 @@
                 data-bs-dismiss="modal"
                 class="btn btn-outline-danger"
                 (click)="deleteRolUser(rol.idRol)"
+                [disabled]="rolesUsuario.length === 1"
               >
                 Eliminar {{ rol.nombre }}
               </button>
-              <div *ngIf="rolesUsuario.length <= 1">
-                Debes tener al menos un rol.
+              <br/>
+              <div *ngIf="rolesUsuario.length===1">
+                <h6> Cada usuario debe tener al menos un rol agrege otro rol para poder eliminar un rol.</h6>
               </div>
-              <br />
+
             </div>
+
           </div>
         </div>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -115,7 +118,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Crear Usuario</h5>
+          <h5 class="modal-title">Crear Usuario</h5>
           <button
             type="button"
             class="btn-close"

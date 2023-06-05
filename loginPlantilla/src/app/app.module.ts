@@ -5,10 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms'
 import {HttpClientModule} from "@angular/common/http";
+import { FooterComponent } from './shared/componentes/footer/footer.component';
+import { HeaderComponent } from './shared/componentes/header/header.component';
+import { LayoutComponent } from './layout/layout.component';
+import { authInterceptorProviders } from './Service/auth.interceptor';
+import { HomeComponent } from './Modulos/Users/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FooterComponent,
+    HeaderComponent,
+    LayoutComponent,
+    HomeComponent,
     
   ],
   imports: [
@@ -18,7 +27,7 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
 
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

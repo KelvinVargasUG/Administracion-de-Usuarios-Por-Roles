@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Rol} from "../../Entidades/Rol.entidad";
+import {UrlsApis} from '../UrlsApis'
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolService {
-  url_api='http://localhost:8080/rol';
+  url_api=UrlsApis.URL+'/rol';
 
   constructor(private http:HttpClient) { }
   

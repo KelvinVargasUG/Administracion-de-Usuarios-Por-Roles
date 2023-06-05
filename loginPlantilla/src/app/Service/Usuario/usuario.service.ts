@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from 'src/app/Entidades/Usuario.entidad';
+import {UrlsApis} from '../UrlsApis'
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
-
-  url_api='http://localhost:8080/usuario';
+  url_api=UrlsApis.URL+'/usuarios';
 
   constructor(private http:HttpClient) { }
 
   registreUsuario(usuario:Usuario){
     usuario.estado='A';
-    usuario.roles=[{ idRol: 1}];
+    usuario.roles=[{ idRol: 2}];
     console.log(usuario)
     return this.http.post<Usuario>(`${this.url_api}`,usuario);
   }
