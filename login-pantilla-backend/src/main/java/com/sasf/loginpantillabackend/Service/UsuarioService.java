@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.constraints.Null;
 
+import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuarioRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,27 +24,14 @@ public class UsuarioService {
 
     @Autowired
     RolService rolService;
-    //private BCryptPasswordEncoder passwordEncoder;
 
-   // public UsuarioService(BCryptPasswordEncoder passwordEncoder) {
-        //this.passwordEncoder = passwordEncoder;
-    //}
-
-    public List<Usuario> getAllUsuarios() {
-        List<Usuario> usuario = iUsuario.getAllUsuarios();
-        if (usuario != null) {
-            return usuario;
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay datos");
-        }
-    }
+    @Autowired
+    private IUsuarioRol iUsuarioRol;
 
     public Usuario createUsuario(Usuario usuario) {
         Optional<Rol> rolRespuesta=rolService.getRolByRol(usuario.getRoles().get(0).getIdRol());
         Rol rol = rolRespuesta.get();
         usuario.getRoles().get(0).setNombre(rol.getNombre());
-
-
         return iUsuario.save(usuario);
     }
 
@@ -87,7 +75,7 @@ public class UsuarioService {
     }
 
     public Usuario getUsuarioById(Integer id) {
-        Usuario usuario = iUsuario.getUsuariosById(id);
+        Usuario usuario = iUsuarioRol.getUsuariosById(id);
         if (usuario != null) {
             return usuario;
         } else {

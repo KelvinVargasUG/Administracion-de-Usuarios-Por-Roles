@@ -10,10 +10,6 @@ import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 
 @Repository
 public interface IUsuario extends JpaRepository<Usuario, Integer> {
-
-    @Query("select u from Usuario u where u.estado IS NOT NULL order by u.IdUsuario ASC")
-    public List<Usuario> getAllUsuarios();
-
     @Query("SELECT u FROM Usuario u WHERE u.IdUsuario = :id AND u.estado IS NOT NULL")
     public Usuario getUsuariosById(Integer id);
 }

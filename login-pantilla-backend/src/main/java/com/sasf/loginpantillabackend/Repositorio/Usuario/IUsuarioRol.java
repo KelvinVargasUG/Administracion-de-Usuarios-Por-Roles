@@ -24,4 +24,13 @@ public interface IUsuarioRol extends JpaRepository<UsuarioRol, Integer> {
             "and ur.IdUsuario = u.IdUsuario where ur.estado='A' and u.estado is not null order by u.IdUsuario asc")
     public List<Usuario> getAllUsuario();
 
+    @Query("SELECT DISTINCT  u from Usuario u JOIN fetch u.roles r JOIN UsuarioRol ur on ur.IdRol = r.IdRol " +
+            "and ur.IdUsuario = u.IdUsuario where ur.estado='A' and u.email =:email and u.estado is not null order by u.IdUsuario asc")
+    public Usuario getUsuariosByEmail(String email);
+
+    @Query("SELECT DISTINCT  u from Usuario u JOIN fetch u.roles r JOIN UsuarioRol ur on ur.IdRol = r.IdRol " +
+            "and ur.IdUsuario = u.IdUsuario where ur.estado='A' and u.IdUsuario =:id and u.estado is not null order by u.IdUsuario asc")
+    public Usuario getUsuariosById(Integer id);
+
+
 }
