@@ -8,7 +8,7 @@ import { Usuario } from 'src/app/Entidades/Usuario.entidad';
 })
 export class UsuarioService {
 
-  url_api='http://localhost:8080/usuario';
+  url_api='http://localhost:8080/usuarios';
 
   constructor(private http:HttpClient) { }
 
