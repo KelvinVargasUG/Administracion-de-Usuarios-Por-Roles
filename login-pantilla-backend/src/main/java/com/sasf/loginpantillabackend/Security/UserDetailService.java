@@ -1,8 +1,6 @@
 package com.sasf.loginpantillabackend.Security;
 
 import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
-import com.sasf.loginpantillabackend.Entidades.Usuario.UsuarioRol;
-import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuario;
 import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuarioRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

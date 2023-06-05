@@ -1,14 +1,11 @@
 package com.sasf.loginpantillabackend.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import javax.validation.constraints.Null;
 
 import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuarioRol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,11 +25,22 @@ public class UsuarioService {
     @Autowired
     private IUsuarioRol iUsuarioRol;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public Usuario createUsuario(Usuario usuario) {
-        Optional<Rol> rolRespuesta=rolService.getRolByRol(usuario.getRoles().get(0).getIdRol());
-        Rol rol = rolRespuesta.get();
-        usuario.getRoles().get(0).setNombre(rol.getNombre());
-        return iUsuario.save(usuario);
+        Usuario usuarioRespuesta = iUsuarioRol.getUsuariosByEmail(usuario.getEmail());
+
+        if (usuarioRespuesta == null) {
+            usuario.setPassword(this.bCryptPasswordEncoder.encode(usuario.getPassword()));
+
+            Optional<Rol> rolRespuesta = rolService.getRolById(usuario.getRoles().get(0).getIdRol());
+            Rol rol = rolRespuesta.get();
+            usuario.getRoles().get(0).setNombre(rol.getNombre());
+            return iUsuario.save(usuario);
+        } else {
+            return null;
+        }
     }
 
     public Usuario updateUsuario(Usuario usuario, Integer id) {
@@ -52,8 +60,8 @@ public class UsuarioService {
             return iUsuario.save(dataActualizar);
 
         }
-        
-         else {
+
+        else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "No se encontró el usuario con el ID especificado: " + id);
         }

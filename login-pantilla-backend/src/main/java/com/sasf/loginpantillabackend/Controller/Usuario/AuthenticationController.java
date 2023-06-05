@@ -3,7 +3,11 @@ package com.sasf.loginpantillabackend.Controller.Usuario;
 import com.sasf.loginpantillabackend.Configuration.JwtUtils;
 import com.sasf.loginpantillabackend.Entidades.Usuario.JwtRequest;
 import com.sasf.loginpantillabackend.Entidades.Usuario.JwtResponse;
+import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 import com.sasf.loginpantillabackend.Security.UserDetailService;
+
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,11 +15,14 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     @Autowired
@@ -52,4 +59,8 @@ public class AuthenticationController {
         }
     }
 
+    @GetMapping("/actual-usuario")
+    public Usuario obtenerUsuarioActual(Principal principal){
+        return (Usuario) this.userDetailService.loadUserByUsername(principal.getName());
+    }
 }
