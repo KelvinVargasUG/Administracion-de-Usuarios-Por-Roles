@@ -17,6 +17,11 @@
           >Home
         </a>
       </li>
+      <li *ngIf="isAdmin()" class="nav-item active">
+        <a class="nav-link text-white" routerLink="/usuarios" type="button"
+        >Usuarios
+        </a>
+      </li>
     </ul>
     <form class="form-inline">
       <input

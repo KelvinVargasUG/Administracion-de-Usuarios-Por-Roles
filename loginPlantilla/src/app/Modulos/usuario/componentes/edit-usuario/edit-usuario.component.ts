@@ -107,6 +107,6 @@ export class EditUsuarioComponent implements OnInit {
   }
 
   irUsuario() {
-    this.router.navigate(['./home']);
+    this.router.navigate(['./usuarios']);
   }
 }

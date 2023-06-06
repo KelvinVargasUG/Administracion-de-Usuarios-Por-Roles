@@ -15,4 +15,13 @@ export class HeaderComponent {
     this.loginService.cerrarSession();
     this.router.navigate(['./login'])
   }
+
+  isAdmin():boolean{
+    if(this.loginService.getUserRol() == 'Admin'){
+      return true
+    }
+    else {
+      return false;
+    }
+  }
 }
