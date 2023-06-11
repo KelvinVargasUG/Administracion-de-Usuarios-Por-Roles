@@ -67,9 +67,9 @@ public class Usuario implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Authority> autoridades = new HashSet<>();
-        this.roles.forEach(rol -> {
+        for (Rol rol : this.roles) {
             autoridades.add(new Authority(rol.getNombre()));
-        });
+        }
             return autoridades;
     }
 
