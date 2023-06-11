@@ -9,12 +9,13 @@ const routes: Routes = [
   {path: 'registre', loadChildren: ()=>import('./Modulos/registre/registre.module').then(m => m.RegistreModule)},
   {
     path: '', component: LayoutComponent, children: [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'usuarios', loadChildren: ()=>import('./Modulos/usuario/usuario.module').then(m => m.UsuarioModule), canActivate:[AdminGuard]},
   {path: 'home', loadChildren: ()=>import('./Modulos/Users/users.module').then(m => m.UsersModule), canActivate:[adminUserGuard]},
-  {path: '**', loadChildren: ()=>import('./Modulos/page-no-found/page-no-found.module').then(m => m.PageNoFoundModule)},
 ]
-  }
+  },
+  {path: '**', loadChildren: ()=>import('./Modulos/page-no-found/page-no-found.module').then(m => m.PageNoFoundModule)},
+
 ];
 
 @NgModule({

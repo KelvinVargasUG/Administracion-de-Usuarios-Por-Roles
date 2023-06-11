@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LoginService} from "../Service/Login/login.service";
 
 @Component({
   selector: 'app-layout',
@@ -6,5 +7,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
-
 }

@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './Componente/login/login.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { SelectRolComponent } from './Componente/select-rol/select-rol.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    SelectRolComponent,
   ],
   imports: [
     CommonModule,
     LoginRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule
 
   ]

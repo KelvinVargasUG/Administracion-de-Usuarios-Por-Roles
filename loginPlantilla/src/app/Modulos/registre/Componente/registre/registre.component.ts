@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/Service/Usuario/usuario.service';
+import {LoginService} from "../../../../Service/Login/login.service";
 
 @Component({
   selector: 'app-registre',
@@ -14,8 +15,10 @@ export class RegistreComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private loginService:LoginService
   ) {
+    this.loginService.cerrarSession();
     this.buildForm();
   }
 

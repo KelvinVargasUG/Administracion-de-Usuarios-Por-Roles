@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/Service/Login/login.service';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoginService} from 'src/app/Service/Login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,22 +10,29 @@ import { LoginService } from 'src/app/Service/Login/login.service';
 })
 export class LoginComponent implements OnInit {
   formUsuario!: FormGroup;
+  user!:any;
+  ocultarBtnLongIn:boolean=true;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService
   ) {
-    this.buildForm();
   }
 
   ngOnInit(): void {
-    if(this.loginService.isLoggedIn()){
-      this.router.navigate(["./home"])
-    }else{
-    this.loginService.cerrarSession();
+   this.checkLoggedInStatus();
+   this.buildForm();
   }
-}
+
+  checkLoggedInStatus() {
+    if (this.loginService.isLoggedIn()) {
+      this.router.navigate(["./home"]);
+    } else {
+      this.loginService.cerrarSession();
+    }
+  }
 
   private buildForm() {
     this.formUsuario = this.formBuilder.group({
@@ -45,18 +52,8 @@ export class LoginComponent implements OnInit {
         next: (data: any) => {
           this.loginService.loginUser(data.token);
           this.loginService.getCurrentUser().subscribe({
-            next: (user) => {
-              this.loginService.setUser(user);
-
-              if (this.loginService.getUserRol() == 'Admin') {
-                this.router.navigate(['./home']);
-                this.loginService.loginStatusSubjec.next(true);
-              } else if (this.loginService.getUserRol() == 'User') {
-                this.router.navigate(['./home']);
-                this.loginService.loginStatusSubjec.next(true);
-              } else {
-                this.loginService.cerrarSession();
-              }
+            next: (user: any) => {
+              this.comprobarRoles(user);
             },
             error: (error) => {
             },
@@ -64,9 +61,41 @@ export class LoginComponent implements OnInit {
         },
         error: (error) => {
           alert('Datos invalidos, intente de nuevo');
-
         },
       });
+    }
+  }
+
+  comprobarRoles(user: any) {
+    if (user.authorities.length === 1) {
+      this.guardarUsuario(user);
+    }else {
+      this.user=user;
+      this.ocultarBtnLongIn=false;
+    }
+  }
+
+  guardarUsuario(user: any) {
+    this.loginService.setUser(user);
+    const userRol = this.loginService.getUserRol();
+    if (userRol === 'Admin' || userRol === 'User') {
+      this.router.navigate(['./home']);
+      this.loginService.loginStatusSubjec.next(true);
+    } else {
+      this.loginService.cerrarSession();
+    }
+  }
+
+  extraerSeleccion(user: any) {
+      this.guardarUsuario(user);
+  }
+
+  cancelarSeleccion(cancelar: boolean) {
+    if(cancelar===true){
+      this.loginService.cerrarSession();
+      this.buildForm();
+      this.ocultarBtnLongIn=true;
+
     }
   }
 }
