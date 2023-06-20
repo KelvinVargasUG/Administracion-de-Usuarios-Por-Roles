@@ -6,6 +6,9 @@ import javax.validation.Valid;
 
 import com.sasf.loginpantillabackend.Service.UsuarioRolService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +29,10 @@ public class UsuarioControlador {
 
     @GetMapping
     @PreAuthorize("hasAuthority('Admin')")
-    public ResponseEntity<List<Usuario>> getAllUsuarios() {
-        return ResponseEntity.ok(usuarioRolService.getAllUsuarios());
+    public ResponseEntity<?> getAllUsuarios(@PageableDefault(page = 0, size = 5) Pageable pageable) {
+
+
+        return ResponseEntity.ok(usuarioRolService.getAllUsuarios(pageable));
     }
 
     @PostMapping

@@ -50,7 +50,7 @@ public class Usuario implements UserDetails {
 
     @NotNull
     @NotEmpty
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario"), 
                                     inverseJoinColumns = @JoinColumn(name = "id_rol", referencedColumnName = "id_rol"))
     private List<Rol> roles;
