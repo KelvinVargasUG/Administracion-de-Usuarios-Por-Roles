@@ -12,13 +12,6 @@ export class UsuarioService {
 
   constructor(private http:HttpClient) { }
 
-  registreUsuario(usuario:Usuario){
-    usuario.estado='A';
-    usuario.roles=[{ idRol: 2}];
-    console.log(usuario)
-    return this.http.post<Usuario>(`${this.url_api}`,usuario);
-  }
-
   createUsuario(usuario:Usuario){
     return this.http.post<Usuario>(`${this.url_api}`,usuario);
   }

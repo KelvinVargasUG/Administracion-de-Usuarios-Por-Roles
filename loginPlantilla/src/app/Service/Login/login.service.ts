@@ -2,17 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {UrlsApis} from '../UrlsApis'
 import { Subject } from 'rxjs';
+import {Usuario} from "../../Entidades/Usuario.entidad";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  url_api=UrlsApis.URL;
+  url_api=UrlsApis.URL+UrlsApis.pathAut.auth;
 
   public loginStatusSubjec = new Subject<boolean>();
 
   constructor(private http:HttpClient) { }
 
+  registreUsuario(usuario:Usuario){
+    usuario.estado='A';
+    usuario.roles=[{ idRol: 2}];
+    return this.http.post<Usuario>(`${this.url_api}/registrar`,usuario);
+  }
 
   public generateToken(loginData:any){
     return this.http.post(`${this.url_api}/generate-token`,loginData);

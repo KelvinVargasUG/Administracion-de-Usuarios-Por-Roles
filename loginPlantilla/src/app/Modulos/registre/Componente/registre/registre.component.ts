@@ -15,7 +15,6 @@ export class RegistreComponent {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private usuarioService: UsuarioService,
     private loginService:LoginService
   ) {
     this.loginService.cerrarSession();
@@ -29,7 +28,7 @@ export class RegistreComponent {
   saveUsuario() {
     if (this.formUsuario.valid) {
       const usuario = this.formUsuario.value;
-      this.usuarioService.registreUsuario(usuario).subscribe({
+      this.loginService.registreUsuario(usuario).subscribe({
         next: (data) => {
           if (data == null) {
             alert('El email ya existe');
