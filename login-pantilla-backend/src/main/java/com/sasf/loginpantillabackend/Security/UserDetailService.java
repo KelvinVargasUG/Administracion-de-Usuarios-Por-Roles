@@ -3,6 +3,7 @@ package com.sasf.loginpantillabackend.Security;
 import com.sasf.loginpantillabackend.Entidades.Usuario.Usuario;
 import com.sasf.loginpantillabackend.Repositorio.Usuario.IUsuarioRol;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,11 +18,10 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = this.iUsuarioRol.getUsuariosByEmail(email);
-        if(usuario == null){
+        if (usuario == null) {
             throw new UsernameNotFoundException("Usuario no encontrado");
-        }
-        else {
-            return usuario;
+        } else {
+            return new User(usuario.getEmail(), usuario.getPassword(), usuario.getAuthorities());
         }
     }
 }

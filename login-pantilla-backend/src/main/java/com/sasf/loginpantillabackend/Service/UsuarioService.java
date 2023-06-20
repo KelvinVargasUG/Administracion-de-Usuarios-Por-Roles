@@ -28,19 +28,25 @@ public class UsuarioService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public Usuario createUsuario(Usuario usuario) {
+    public Usuario createUsuario(Usuario usuario, String tipo) {
         Usuario usuarioRespuesta = iUsuarioRol.getUsuariosByEmail(usuario.getEmail());
-
         if (usuarioRespuesta == null) {
             usuario.setPassword(this.bCryptPasswordEncoder.encode(usuario.getPassword()));
 
-            Optional<Rol> rolRespuesta = rolService.getRolById(usuario.getRoles().get(0).getIdRol());
-            Rol rol = rolRespuesta.get();
-            usuario.getRoles().get(0).setNombre(rol.getNombre());
+            if(tipo=="Create") {
+                Optional<Rol> rolRespuesta = rolService.getRolById(usuario.getRoles().get(0).getIdRol());
+                Rol rol = rolRespuesta.get();
+                usuario.getRoles().get(0).setNombre(rol.getNombre());
+            }
+            if(tipo=="Registre"){
+                usuario.getRoles().get(0).setNombre("User");
+            }
+            usuario.setEstado("A");
             return iUsuario.save(usuario);
         } else {
             return null;
         }
+
     }
 
     public Usuario updateUsuario(Usuario usuario, Integer id) {
