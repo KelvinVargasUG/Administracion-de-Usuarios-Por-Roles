@@ -16,8 +16,6 @@ export class TablaUsuarioComponent implements OnInit {
   rolesUsuario!: Rol[];
   formUsuario!: FormGroup;
 
-  rolSeleccionado: any;
-
   idUsuario!: number;
 
   constructor(
@@ -79,7 +77,11 @@ export class TablaUsuarioComponent implements OnInit {
   }
 
   getAllUsuarios() {
-    this.usuarioService.getAllUsuario().subscribe({
+    const params={
+      page:0,
+      size:1
+    }
+    this.usuarioService.getAllUsuario(params).subscribe({
       next: (data: Usuario[]) => {
         this.usuarios = data;
       },
@@ -140,7 +142,7 @@ export class TablaUsuarioComponent implements OnInit {
       this.usuarioService.createUsuario(usuario).subscribe({
         next: (data: any) => {
           if (data.nombre != null) {
-            this.usuarios.push(data);
+            this.usuarios.unshift(data);
             this.buildForm();
             alert(
               data.nombre + ' ' + data.apellido + ' Guardado Correctamente'

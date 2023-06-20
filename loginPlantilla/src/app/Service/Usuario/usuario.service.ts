@@ -16,8 +16,8 @@ export class UsuarioService {
     return this.http.post<Usuario>(`${this.url_api}`,usuario);
   }
 
-  getAllUsuario(){
-    return this.http.get<Usuario[]>(`${this.url_api}`)
+  getAllUsuario(params?:any){
+    return this.http.get<Usuario[]>(`${this.url_api}`, {params: params})
   }
 
   deleteUsuario(id:number){

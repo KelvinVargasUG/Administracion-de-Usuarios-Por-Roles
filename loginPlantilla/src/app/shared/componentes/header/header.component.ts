@@ -1,27 +1,31 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/Service/Login/login.service';
+import {Component, OnChanges, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LoginService} from 'src/app/Service/Login/login.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  constructor(private loginService:LoginService, private router:Router){}
+  constructor(private loginService: LoginService, private router: Router) {
+  }
 
-  CerrarSession(){
+  CerrarSession() {
     this.loginService.cerrarSession();
     this.router.navigate(['./login'])
   }
 
-  isAdmin():boolean{
-    if(this.loginService.getUserRol() == 'Admin'){
+  isAdmin(): boolean {
+    if (this.loginService.getUserRol() == 'Admin') {
       return true
-    }
-    else {
+
+    } else {
       return false;
     }
+  }
+
+  ngOnInit(): void {
   }
 }

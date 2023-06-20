@@ -1,13 +1,19 @@
-<h2>Lista de Usuarios</h2>
-<button
-  type="button"
-  class="btn btn-outline-success"
-  data-bs-toggle="modal"
-  data-bs-target="#fromUsuario"
->
-  Crear Usuario
-</button>
-<table class="table table-striped">
+<title>Lista de Usuarios</title>
+<br>
+<h2 class="text-white text-center">Lista de Usuarios</h2>
+
+<div class="container">
+  <button
+    type="button"
+    class="btn btn-success"
+    data-bs-toggle="modal"
+    data-bs-target="#fromUsuario"
+  >
+    <i class="bi bi-file-earmark-text"></i>
+    Crear Usuario
+  </button>
+
+<table class="table table-striped" >
   <thead class="table-info">
   <tr>
     <th>Id</th>
@@ -19,7 +25,7 @@
   </tr>
   </thead>
 
-  <tbody>
+  <tbody class="text-white">
   <tr *ngFor="let usuario of usuarios">
     <td>{{ usuario.idUsuario }}</td>
     <td>{{ usuario.nombre }} {{ usuario.apellido }}</td>
@@ -29,30 +35,34 @@
 
     <td>
       <button
-        class="btn btn-outline-danger"
+        class="btn btn-danger"
         (click)="usuario.idUsuario && deleteUsuario(usuario.idUsuario)"
       >
+        <i class="bi bi-trash3"></i>
         Eliminar
       </button>
       <button
-        class="btn btn-outline-warning"
+        class="btn btn-warning text-white"
         [routerLink]="['edit', usuario.idUsuario]"
       >
+        <i class="bi bi-pencil-square"></i>
         Editar
       </button>
       <button
-        class="btn btn-outline-info"
+        class="btn btn-info"
         data-bs-toggle="modal"
         data-bs-target="#fromQuitarRol"
         (click)="getRolesUser(usuario.roles, usuario.idUsuario)"
       >
+        <i class="bi bi-person-x-fill"></i>
         Quitar Rol
       </button>
     </td>
   </tr>
+
   </tbody>
 </table>
-
+</div>
 <!--Modal Quitar Rol-->
 <form class="needs-validation">
   <div
