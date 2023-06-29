@@ -30,8 +30,6 @@ public class UsuarioControlador {
     @GetMapping
     @PreAuthorize("hasAuthority('Admin')")
     public ResponseEntity<?> getAllUsuarios(@PageableDefault(page = 0, size = 5) Pageable pageable) {
-
-
         return ResponseEntity.ok(usuarioRolService.getAllUsuarios(pageable));
     }
 
