@@ -10,14 +10,15 @@ import {UrlsApis} from '../UrlsApis'
 export class UsuarioService {
   url_api=UrlsApis.URL+'/usuarios';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+              ) { }
 
   createUsuario(usuario:Usuario){
     return this.http.post<Usuario>(`${this.url_api}`,usuario);
   }
 
   getAllUsuario(params?:any){
-    return this.http.get<Usuario[]>(`${this.url_api}`, {params: params})
+    return this.http.get(`${this.url_api}`, {params: params})
   }
 
   deleteUsuario(id:number){

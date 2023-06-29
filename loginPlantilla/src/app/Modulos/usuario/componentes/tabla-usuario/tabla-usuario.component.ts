@@ -18,6 +18,11 @@ export class TablaUsuarioComponent implements OnInit {
 
   idUsuario!: number;
 
+  totalPagesArray:number[]=[];
+  totalPages:number=2;
+  pageActual:number=1;
+
+
   constructor(
     private usuarioService: UsuarioService,
     private rolService: RolService,
@@ -27,8 +32,17 @@ export class TablaUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllUsuarios();
+    this.cargarData(this.pageActual);
+    this.extraerNumeroPages();
     this.getAllRol();
+  }
+extraerNumeroPages(){
+  for (let i = 1; i <= this.totalPages; i++) {
+    this.totalPagesArray.push(i);
+  }
+}
+  cargarData( pageActual:number){
+    this.getAllUsuarios(pageActual);
   }
 
   getRolesUser(roles: any[], idUsuario: any) {
@@ -70,20 +84,24 @@ export class TablaUsuarioComponent implements OnInit {
           this.roles = data;
         },
         error: (error) => {
-          console.log(error)
+          console.log("Extraer todos los roles " + error)
         }
       }
     )
   }
 
-  getAllUsuarios() {
-    const params={
-      page:0,
-      size:1
+  getAllUsuarios( pageActual:number) {
+    const params = {
+      page: pageActual-1,
+      size: 2
     }
     this.usuarioService.getAllUsuario(params).subscribe({
-      next: (data: Usuario[]) => {
-        this.usuarios = data;
+      next: (data: any) => {
+        this.usuarios = [];
+        data.body.content.forEach((el: any) => {
+          this.usuarios.push(el)
+        })
+        this.totalPages= data.body.totalPages;
       },
       error: (error) => {
         console.log(error);
@@ -152,4 +170,6 @@ export class TablaUsuarioComponent implements OnInit {
       });
     }
   }
+
+  protected readonly Array = Array;
 }

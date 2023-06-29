@@ -10,7 +10,7 @@ export class RolService {
   url_api=UrlsApis.URL+'/rol';
 
   constructor(private http:HttpClient) { }
-  
+
   getAllRol(){
     return this.http.get<Rol[]>(`${this.url_api}`)
   }
@@ -23,4 +23,7 @@ export class RolService {
     return this.http.put(`${this.url_api}/delete/${idUser}/${idRol}`, "");
   }
 
+  getCabecera(){
+    return this.http.get<Rol[]>(`${this.url_api}`, {observe: 'response'})
+  }
 }

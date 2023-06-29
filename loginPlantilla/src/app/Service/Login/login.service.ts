@@ -75,4 +75,6 @@ export class LoginService {
   public getCurrentUser(){
     return this.http.get(`${this.url_api}/actual-usuario`);
   }
+
+
 }
