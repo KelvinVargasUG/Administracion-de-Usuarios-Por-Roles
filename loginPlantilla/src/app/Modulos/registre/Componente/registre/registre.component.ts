@@ -34,13 +34,13 @@ export class RegistreComponent {
             alert('El email ya existe');
           } else {
             alert('Usuario Registrado');
+            this.irLogin();
           }
         },
         error: (error) => {
           alert('El email proporsionado ya existe');
         },
       });
-      this.irLogin();
     }
   }
 

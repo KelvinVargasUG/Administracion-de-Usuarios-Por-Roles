@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {UsuarioService} from 'src/app/Service/Usuario/usuario.service';
 import {Usuario} from 'src/app/Entidades/Usuario.entidad';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -18,9 +18,9 @@ export class TablaUsuarioComponent implements OnInit {
 
   idUsuario!: number;
 
-  totalPagesArray:number[]=[];
-  totalPages:number=2;
-  pageActual:number=1;
+  totalPagesArray: number[] = [];
+  totalPages: number=0;
+  pageActual: number = 1;
 
 
   constructor(
@@ -33,15 +33,17 @@ export class TablaUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarData(this.pageActual);
-    this.extraerNumeroPages();
     this.getAllRol();
+    this.extraerNumeroPages();
   }
-extraerNumeroPages(){
-  for (let i = 1; i <= this.totalPages; i++) {
-    this.totalPagesArray.push(i);
+
+  extraerNumeroPages() {
+    for (let i = 1; i <= this.totalPages; i++) {
+      this.totalPagesArray.push(i);
+    }
   }
-}
-  cargarData( pageActual:number){
+
+  cargarData(pageActual: number) {
     this.getAllUsuarios(pageActual);
   }
 
@@ -90,18 +92,19 @@ extraerNumeroPages(){
     )
   }
 
-  getAllUsuarios( pageActual:number) {
+  getAllUsuarios(pageActual: number) {
     const params = {
-      page: pageActual-1,
+      page: pageActual - 1,
       size: 2
     }
     this.usuarioService.getAllUsuario(params).subscribe({
       next: (data: any) => {
         this.usuarios = [];
+        this.totalPages = data.body.totalPages;
+
         data.body.content.forEach((el: any) => {
           this.usuarios.push(el)
         })
-        this.totalPages= data.body.totalPages;
       },
       error: (error) => {
         console.log(error);
@@ -171,5 +174,4 @@ extraerNumeroPages(){
     }
   }
 
-  protected readonly Array = Array;
 }

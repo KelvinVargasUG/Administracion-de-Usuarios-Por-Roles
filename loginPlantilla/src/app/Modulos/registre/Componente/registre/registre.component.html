@@ -1,3 +1,11 @@
+<div *ngIf="formUsuario.invalid && formUsuario.get('nombre')?.dirty && formUsuario.get('apellido')?.dirty
+                  &&  formUsuario.get('email')?.dirty && formUsuario.get('password')?.dirty" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <p class="font-weight-bold">WARNING</p> Todos los campos son requeridos
+</div>
+<div *ngIf="formUsuario.get('email')?.invalid" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <p class="font-weight-bold">WARNING</p> El campo Email debe tener este formato "exampleusuario@example.com"
+</div>
+<title>Registre</title>
 <body>
   <div class="session">
     <div class="left">
@@ -26,40 +34,16 @@
       <div class="floating-label">
         <input formControlName="nombre" placeholder="Nombre" type="text" />
         <label>Nombre:</label>
-        <div
-          *ngIf="
-            formUsuario.get('nombre')?.hasError('required') &&
-            formUsuario.get('nombre')?.dirty
-          "
-        >
-          <p style="color: red">Campo requerido</p>
-        </div>
       </div>
 
       <div class="floating-label">
         <input formControlName="apellido" placeholder="Apellido" type="text" />
         <label for="Apellido">Apellido:</label>
-        <div
-          *ngIf="
-            formUsuario.get('apellido')?.hasError('required') &&
-            formUsuario.get('apellido')?.dirty
-          "
-        >
-          <p style="color: red">Campo requerido</p>
-        </div>
       </div>
 
       <div class="floating-label">
         <input formControlName="email" placeholder="Email" type="email" />
         <label for="email">Email:</label>
-        <div
-        *ngIf="
-          formUsuario.get('email')?.invalid &&
-          formUsuario.get('email')?.dirty 
-        "
-        >
-        <p style="color: red">Ingrese email Valido</p>
-        </div>
       </div>
 
       <div class="floating-label">
@@ -69,19 +53,9 @@
           type="password"
         />
         <label for="password">Password:</label>
-
-     
-        <div
-          *ngIf="
-            formUsuario.get('password')?.invalid &&
-            formUsuario.get('password')?.dirty
-          "
-        >
-          <p style="color: red">Ingrese una contraseña mayo a 8 caracteres</p>
-        </div>
       </div>
 
-      <button type="submit" [disabled]="formUsuario.invalid">
+      <button type="submit" [disabled]="formUsuario.invalid" class="buttonRegistre">
         Registrarse
       </button>
       <a (click)="irLogin()" class="discrete" target="_blank">Log in</a>

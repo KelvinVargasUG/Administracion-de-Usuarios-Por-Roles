@@ -1,3 +1,11 @@
+<div *ngIf="formUsuario.invalid &&  formUsuario.get('email')?.dirty
+            && formUsuario.get('password')?.dirty"
+     class="alert alert-warning alert-dismissible fade show" role="alert">
+  <p class="font-weight-bold">WARNING</p> Todos los campos son requeridos
+</div>
+<div *ngIf="formUsuario.get('email')?.invalid" class="alert alert-warning alert-dismissible fade show" role="alert">
+  <p class="font-weight-bold">WARNING</p> El campo Email debe tener este formato "exampleusuario@example.com"
+</div>
 <title>Login</title>
 <body>
 <div class="session">
@@ -31,15 +39,6 @@
     <div class="floating-label">
       <input [readonly]="ocultarBtnLongIn===false" formControlName="email" placeholder="Email" type="email"/>
       <label for="email">Email:</label>
-
-      <div
-        *ngIf="
-		  formUsuario.get('email')?.invalid &&
-		  formUsuario.get('email')?.dirty
-		"
-      >
-        <p style="color: red">Ingrese email Valido</p>
-      </div>
     </div>
 
     <div class="floating-label">
@@ -50,14 +49,6 @@
         [readonly]="ocultarBtnLongIn===false"
       />
       <label for="password">Password:</label>
-      <div
-        *ngIf="
-            formUsuario.get('password')?.invalid &&
-            formUsuario.get('password')?.dirty
-          "
-      >
-        <p style="color: red">Ingrese una contraseña mayo a 8 caracteres</p>
-      </div>
     </div>
     <button type="submit" *ngIf="ocultarBtnLongIn" [disabled]="formUsuario.invalid">Log in</button>
     <app-select-rol [user]="user" (seltRol)="extraerSeleccion($event)" [mostrarBtnSeleccionarRol]="ocultarBtnLongIn" (cancelarSeleccion)="cancelarSeleccion($event)"></app-select-rol>
