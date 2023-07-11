@@ -39,11 +39,12 @@ public interface IUsuarioRol extends JpaRepository<UsuarioRol, Integer> {
     public List<Usuario> getAllUsuarioList();
 
 
-    @Query(value = "SELECT DISTINCT u FROM Usuario u " +
-            "JOIN UsuarioRol ur ON u.IdUsuario = ur.IdUsuario " +
-            "JOIN Rol r ON r.IdRol = ur.IdRol " +
-            "WHERE ur.estado = 'A' AND u.estado IS NOT NULL " +
-            "ORDER BY u.IdUsuario DESC",
+    @Query(value = "SELECT DISTINCT  u from Usuario u " +
+            "JOIN fetch u.roles r " +
+            "JOIN UsuarioRol ur on ur.IdRol = r.IdRol " +
+            "and ur.IdUsuario = u.IdUsuario " +
+            "where ur.estado='A' " +
+            "and u.estado is not null order by u.IdUsuario desc",
             countQuery = "SELECT COUNT(DISTINCT u) FROM Usuario u " +
                     "JOIN UsuarioRol ur ON u.IdUsuario = ur.IdUsuario " +
                     "JOIN Rol r ON r.IdRol = ur.IdRol " +
