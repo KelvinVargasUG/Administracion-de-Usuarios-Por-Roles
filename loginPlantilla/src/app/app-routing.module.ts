@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'registre', loadChildren: () => import('./Modulos/registre/registre.module').then(m => m.RegistreModule)},
   {
     path: '', component: LayoutComponent, children: [
-      {path: '', redirectTo: 'login', pathMatch: 'full'},
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
       {
         path: 'usuarios',
         loadChildren: () => import('./Modulos/usuario/usuario.module').then(m => m.UsuarioModule),

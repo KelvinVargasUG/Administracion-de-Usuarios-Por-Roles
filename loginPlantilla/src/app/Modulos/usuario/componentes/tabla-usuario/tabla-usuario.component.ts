@@ -19,7 +19,7 @@ export class TablaUsuarioComponent implements OnInit {
   idUsuario!: number;
 
   totalPagesArray: number[] = [];
-  totalPages: number=0;
+  totalPages: number=2;
   pageActual: number = 1;
 
 
@@ -95,7 +95,7 @@ export class TablaUsuarioComponent implements OnInit {
   getAllUsuarios(pageActual: number) {
     const params = {
       page: pageActual - 1,
-      size: 2
+      size: 1
     }
     this.usuarioService.getAllUsuario(params).subscribe({
       next: (data: any) => {
